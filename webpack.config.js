@@ -54,6 +54,10 @@ module.exports = {
 					from: "./src/images",
 					to: "images",
 				},
+				{
+					from: "./src/favicon",
+					to: "favicon",
+				},
 			],
 		}),
 	],
