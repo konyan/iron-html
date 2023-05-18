@@ -1,14 +1,13 @@
 const path = require("path");
+const common = require("./webpack.common");
+const merge = require("webpack-merge");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 var HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = {
-	entry: {
-		main: "./src/index.js",
-	},
+module.exports = merge(common, {
 	mode: "production",
 	output: {
 		filename: "[name].[contentHash].bundle.js",
@@ -19,7 +18,7 @@ module.exports = {
 			new OptimizeCssAssetsPlugin(),
 			new TerserPlugin(),
 			new HtmlWebpackPlugin({
-				template: "./src/index.html",
+				template: "./src/template.html",
 				minify: {
 					removeAttributeQuotes: true,
 					collapseWhitespace: true,
@@ -35,27 +34,13 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.html$/,
-				use: ["html-loader"],
-			},
-			{
-				test: /\.(svg|png|jpg|gif)$/,
-				use: {
-					loader: "file-loader",
-					options: {
-						name: "[name].[hash].[ext]",
-						outputPath: "imgs",
-					},
-				},
-			},
-			{
-				test: /\.css$/,
+				test: /\.scss$/,
 				use: [
 					MiniCssExtractPlugin.loader, //3. Extract css into files
-					"style-loader",
-					"css-loader",
+					"css-loader", //2. Turns css into commonjs
+					"sass-loader", //1. Turns sass into css
 				],
 			},
 		],
 	},
-};
+});
