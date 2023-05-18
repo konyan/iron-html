@@ -1,5 +1,7 @@
 # IRON-HTML Template
 
+<a href="https://konyan.me/iron-html/">DEMO LINK</a>
+
 **Webpack Testing for iron-html template**
 
 ## About
@@ -27,11 +29,11 @@ here is test result link from [lighthouse](https://pagespeed.web.dev/analysis/ht
 
 ### Web Result
 
-![web result from light house]('./img/web-result.png')
+<img src="img/web-result.png" alt="Logo" width="full" height="300">
 
 ### Mobile Result
 
-![mobile result from light house]('./img/web-result.png')
+<img src="img/mobile-result.png" alt="Logo" width="full" height="300">
 
 ## License
 
