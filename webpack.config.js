@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
 
 module.exports = {
 	mode: "production",
@@ -31,7 +32,23 @@ module.exports = {
 		],
 	},
 	optimization: {
-		minimizer: [new CssMinimizerPlugin()],
+		minimizer: [
+			new CssMinimizerPlugin(),
+			new ImageMinimizerPlugin({
+				minimizer: {
+					// Implementation
+					implementation: ImageMinimizerPlugin.sharpMinify,
+					// Options
+					options: {
+						encodeOptions: {
+							jpeg: {
+								quality: 50,
+							},
+						},
+					},
+				},
+			}),
+		],
 	},
 	plugins: [
 		new HtmlWebpackPlugin({
